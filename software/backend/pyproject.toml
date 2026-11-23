@@ -1,0 +1,9 @@
+[project]
+name = "mech421-radar-backend"
+version = "0.1.0"
+description = "Backend for the MECH 421 UWB ice radar: NanoVNA serial control and radar processing"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

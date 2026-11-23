@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+
+# Measurements (keep the folder, not the data)
+data/measurements/*
+!data/measurements/.gitkeep
+
+# Firmware build output
+firmware/**/Debug/
+firmware/**/Release/
+firmware/**/build/
+
+# Editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
