@@ -15,34 +15,24 @@ Vivaldi antennas look down at the ice, and a scanning gantry builds 2D/3D images
 | [`hardware`](hardware) | Antennas, mounts, gantry and PCB design files – not started |
 | [`docs`](docs) | Design brief, papers, test notes |
 | [`data`](data) | Measurements saved by the backend (`data/measurements`, git-ignored) |
-| [`scripts`](scripts) | Helper scripts (`dev.ps1` starts everything on Windows) |
+| `Makefile` | Setup, run, test and analysis commands (`make help`) |
 
-## Quick start (Windows)
+## Quick start
 
-Requirements: **Python 3.10+** and **Node.js 20+** on your PATH.
+Requirements: [uv](https://docs.astral.sh/uv/), **Node.js 20+**, and GNU make
+(Windows: `winget install astral-sh.uv` and `choco install make`).
 
 ```powershell
-cd MECH421-Project
-.\scripts\dev.ps1
+make setup    # uv sync (backend) + npm install (frontend)
+make dev      # backend on http://127.0.0.1:8000, GUI on http://localhost:5173
+make help     # every other command
 ```
 
-This creates a Python virtual environment, installs dependencies (first run only), starts the
-backend on http://127.0.0.1:8000 and the GUI on http://localhost:5173, and opens the browser.
-
-Manual start, in two terminals:
+Without make:
 
 ```powershell
-# Terminal 1 - backend
-cd software\backend
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements-dev.txt
-uvicorn app.main:app --reload --port 8000
-
-# Terminal 2 - frontend
-cd software\frontend
-npm install
-npm run dev
+cd software\backend;  uv sync;  uv run uvicorn app.main:app --reload --port 8000
+cd software\frontend; npm install; npm run dev
 ```
 
 ## First test with the NanoVNA
@@ -60,11 +50,6 @@ npm run dev
 ## Tests
 
 ```powershell
-cd software\backend
-pytest          # processing, NanoVNA serial protocol (fake port), API workflow with the simulator
-```
-
-```powershell
-cd software\frontend
-npm run build   # type-check + production build
+make test     # backend: processing, NanoVNA serial protocol (fake port), API workflow with the simulator
+make build    # frontend: type-check + production build
 ```
